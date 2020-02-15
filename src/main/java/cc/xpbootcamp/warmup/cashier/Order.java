@@ -3,9 +3,9 @@ package cc.xpbootcamp.warmup.cashier;
 import java.util.List;
 
 public class Order {
-    String name;
-    String address;
-    List<Item> items;
+    private String name;
+    private String address;
+    private List<Item> items;
 
     public Order(String name, String address, List<Item> items) {
         this.name = name;
