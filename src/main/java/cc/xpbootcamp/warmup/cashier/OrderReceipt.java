@@ -15,13 +15,10 @@ public class OrderReceipt {
         output.append(order.getCustomerName());
         output.append(order.getCustomerAddress());
 
-        double totalSalesTransaction = order.getTotalSalesTransaction();
-        double total = order.getTotal();
-
         printItems(output, order);
 
-        output.append("Sales Tax").append('\t').append(totalSalesTransaction);
-        output.append("Total Amount").append('\t').append(total);
+        output.append("Sales Tax").append('\t').append(order.getTotalSalesTransaction());
+        output.append("Total Amount").append('\t').append(order.getTotal());
 
         return output.toString();
     }
