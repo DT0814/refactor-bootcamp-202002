@@ -27,20 +27,8 @@ public class OrderReceipt {
     }
 
     private static void printItems(StringBuilder output, Order order) {
-        for (Item lineItem : order.getLineItems()) {
-            printItem(output, lineItem);
+        for (Item item : order.getLineItems()) {
+            output.append(item.printTo());
         }
     }
-
-    private static void printItem(StringBuilder output, Item lineItem) {
-        output.append(lineItem.getDescription());
-        output.append('\t');
-        output.append(lineItem.getPrice());
-        output.append('\t');
-        output.append(lineItem.getQuantity());
-        output.append('\t');
-        output.append(lineItem.totalAmount());
-        output.append('\n');
-    }
-
 }
