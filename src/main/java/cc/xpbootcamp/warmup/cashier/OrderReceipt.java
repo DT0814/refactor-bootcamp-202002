@@ -15,8 +15,9 @@ public class OrderReceipt {
         output.append(order.getCustomerName());
         output.append(order.getCustomerAddress());
 
-        double totalSalesTransaction = calculateTotalSalesTransaction(order);
-        double total = calculateTotal(order);
+        double totalSalesTransaction = order.getTotalSalesTransaction();
+        double total = order.getTotal();
+
         printItems(output, order);
 
         output.append("Sales Tax").append('\t').append(totalSalesTransaction);
@@ -27,34 +28,19 @@ public class OrderReceipt {
 
     private static void printItems(StringBuilder output, Order order) {
         for (Item lineItem : order.getLineItems()) {
-            output.append(lineItem.getDescription());
-            output.append('\t');
-            output.append(lineItem.getPrice());
-            output.append('\t');
-            output.append(lineItem.getQuantity());
-            output.append('\t');
-            output.append(lineItem.totalAmount());
-            output.append('\n');
-
+            printItem(output, lineItem);
         }
     }
 
-    private double calculateTotal(Order order) {
-        double total = 0d;
-        for (Item lineItem : order.getLineItems()) {
-            double salesTax = lineItem.totalAmount() * .10;
-            total += lineItem.totalAmount() + salesTax;
-        }
-        return total;
+    private static void printItem(StringBuilder output, Item lineItem) {
+        output.append(lineItem.getDescription());
+        output.append('\t');
+        output.append(lineItem.getPrice());
+        output.append('\t');
+        output.append(lineItem.getQuantity());
+        output.append('\t');
+        output.append(lineItem.totalAmount());
+        output.append('\n');
     }
 
-    private double calculateTotalSalesTransaction(Order order) {
-        double totSalesTx = 0d;
-        for (Item lineItem : order.getLineItems()) {
-
-            double salesTax = lineItem.totalAmount() * .10;
-            totSalesTx += salesTax;
-        }
-        return totSalesTx;
-    }
 }
