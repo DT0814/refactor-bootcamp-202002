@@ -15,8 +15,17 @@ public class OrderReceipt {
         output.append(order.getCustomerName());
         output.append(order.getCustomerAddress());
 
-        double totSalesTx = 0d;
-        double tot = 0d;
+        double totalSalesTransaction = calculateTotalSalesTransaction(order);
+        double total = calculateTotal(order);
+        printItems(output, order);
+
+        output.append("Sales Tax").append('\t').append(totalSalesTransaction);
+        output.append("Total Amount").append('\t').append(total);
+
+        return output.toString();
+    }
+
+    private static void printItems(StringBuilder output, Order order) {
         for (Item lineItem : order.getLineItems()) {
             output.append(lineItem.getDescription());
             output.append('\t');
@@ -27,15 +36,25 @@ public class OrderReceipt {
             output.append(lineItem.totalAmount());
             output.append('\n');
 
+        }
+    }
+
+    private double calculateTotal(Order order) {
+        double total = 0d;
+        for (Item lineItem : order.getLineItems()) {
+            double salesTax = lineItem.totalAmount() * .10;
+            total += lineItem.totalAmount() + salesTax;
+        }
+        return total;
+    }
+
+    private double calculateTotalSalesTransaction(Order order) {
+        double totSalesTx = 0d;
+        for (Item lineItem : order.getLineItems()) {
+
             double salesTax = lineItem.totalAmount() * .10;
             totSalesTx += salesTax;
-
-            tot += lineItem.totalAmount() + salesTax;
         }
-
-        output.append("Sales Tax").append('\t').append(totSalesTx);
-
-        output.append("Total Amount").append('\t').append(tot);
-        return output.toString();
+        return totSalesTx;
     }
 }
