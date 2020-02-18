@@ -4,12 +4,13 @@ public class Item {
     private String desc;
     private double price;
     private int quantity;
-
-    public Item(String desc, double price, int quantity) {
+    private double discount;
+    public Item(String desc, double price, int quantity,double discount) {
         super();
         this.desc = desc;
         this.price = price;
         this.quantity = quantity;
+        this.discount = discount;
     }
 
     public String getDescription() {
@@ -26,6 +27,10 @@ public class Item {
 
     double totalAmount() {
         return price * quantity;
+    }
+
+    public double getDiscount() {
+        return discount;
     }
 
     public String printTo() {

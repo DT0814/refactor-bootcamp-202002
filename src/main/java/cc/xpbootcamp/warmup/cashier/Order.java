@@ -31,7 +31,7 @@ public class Order {
             double salesTax = lineItem.totalAmount() * .10;
             total += lineItem.totalAmount() + salesTax;
         }
-        return total;
+        return total - getDiscount();
     }
 
     public double getTotalSalesTransaction() {
@@ -40,6 +40,16 @@ public class Order {
             double salesTax = lineItem.totalAmount() * .10;
             totSalesTx += salesTax;
         }
-        return totSalesTx;
+        return totSalesTx ;
+    }
+
+    public double getDiscount() {
+        double discount = 0d;
+        for (Item lineItem : this.getLineItems()) {
+            double salesTax = lineItem.totalAmount() * .10;
+            double realPrice = lineItem.totalAmount() + salesTax;
+            discount +=(1- lineItem.getDiscount()) * realPrice;
+        }
+        return discount;
     }
 }

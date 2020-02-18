@@ -24,9 +24,9 @@ class OrderReceiptTest {
     @Test
     public void shouldPrintLineItemAndSalesTaxInformation() {
         List<Item> lineItems = new ArrayList<Item>() {{
-            add(new Item("milk", 10.0, 2));
-            add(new Item("biscuits", 5.0, 5));
-            add(new Item("chocolate", 20.0, 1));
+            add(new Item("milk", 10.0, 2,0.9));
+            add(new Item("biscuits", 5.0, 5,0.9));
+            add(new Item("chocolate", 20.0, 1,0.9));
         }};
         OrderReceipt receipt = new OrderReceipt(new Order(null, null, lineItems));
 
@@ -35,8 +35,9 @@ class OrderReceiptTest {
         assertThat(output, containsString("milk\t10.0\t2\t20.0\n"));
         assertThat(output, containsString("biscuits\t5.0\t5\t25.0\n"));
         assertThat(output, containsString("chocolate\t20.0\t1\t20.0\n"));
-        assertThat(output, containsString("Sales Tax\t6.5"));
-        assertThat(output, containsString("Total Amount\t71.5"));
+        assertThat(output, containsString("Sales Tax\t6.5\n"));
+        assertThat(output, containsString("Discount\t7.149999999999999\n"));
+        assertThat(output, containsString("Total Amount\t64.35"));
     }
 
 }
