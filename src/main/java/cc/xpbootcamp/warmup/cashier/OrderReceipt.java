@@ -14,12 +14,14 @@ public class OrderReceipt {
         StringBuilder output = new StringBuilder();
 
         output.append(TITLE);
+        output.append(order.printDate());
 
         output.append(order.getCustomerName());
         output.append(order.getCustomerAddress());
 
         printItems(output, order);
-        order.printFooter(output);
+
+        output.append(order.printFooter());
 
         return output.toString();
     }

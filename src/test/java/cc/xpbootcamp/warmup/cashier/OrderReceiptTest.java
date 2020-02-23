@@ -63,6 +63,7 @@ class OrderReceiptTest {
                         ));
 
         String output = receipt.printReceipt();
+        assertThat(output, containsString("2020-02-19\t星期三\n"));
 
         assertThat(output, containsString("biscuits\t21.5\t2\t43.0\n"));
         assertThat(output, containsString("chocolate\t10.0\t1\t10.0\n"));

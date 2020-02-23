@@ -1,7 +1,9 @@
 package cc.xpbootcamp.warmup.cashier;
 
+import cc.xpbootcamp.warmup.cashier.utils.DateUtils;
 import cc.xpbootcamp.warmup.cashier.utils.Discount;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -12,8 +14,8 @@ public class Order {
     private static String SALES_TAX = "Sales Tax";
     private static String TOTAL_AMOUNT = "Total Amount";
     private static String DISCOUNT = "Discount";
-    private Date date;
     private Discount discount;
+    private Date date;
 
     public Order(String name, String address, List<Item> items) {
         this(name, address, items, new Date());
@@ -57,7 +59,8 @@ public class Order {
         return totSalesTx;
     }
 
-    public void printFooter(StringBuilder output) {
+    public String printFooter() {
+        StringBuilder output = new StringBuilder();
         output.append(SALES_TAX).append('\t').append(getTotalSalesTransaction()).append("\n");
         double total = getTotal();
         if (discount.isDiscount()) {
@@ -66,5 +69,10 @@ public class Order {
             total *= discount.getDiscount();
         }
         output.append(TOTAL_AMOUNT).append('\t').append(Math.round(total * 100) * 0.01d);
+        return output.toString();
+    }
+
+    public String printDate() {
+        return new SimpleDateFormat("yyyy-MM-dd").format(date) + "\t" + DateUtils.getChineseWeek(date)+ "\n";
     }
 }
